@@ -19,26 +19,26 @@ export async function loader({ request }) {
     const q = url.searchParams.get("q");
     const contacts = await getContacts(q);
     return { contacts, q };
-  }
+}
 export default function Root() {
-    const { contacts,q } = useLoaderData();
+    const { contacts, q } = useLoaderData();
     const navigation = useNavigation();
     const submit = useSubmit();
     const searching =
-    navigation.location &&
-    new URLSearchParams(navigation.location.search).has(
-      "q"
-    );
+        navigation.location &&
+        new URLSearchParams(navigation.location.search).has(
+            "q"
+        );
 
     useEffect(() => {
         document.getElementById("q").value = q;
-      }, [q]);
+    }, [q]);
     return (
         <>
             <div id="sidebar">
                 <h1>React Router Contacts</h1>
                 <div>
-                <Form id="search-form" role="search">
+                    <Form id="search-form" role="search">
 
                         <input
                             id="q"
@@ -49,8 +49,11 @@ export default function Root() {
                             name="q"
                             defaultValue={q}
                             onChange={(event) => {
-                                submit(event.currentTarget.form);
-                              }}
+                                const isFirstSearch = q == null;
+                                submit(event.currentTarget.form, {
+                                    replace: !isFirstSearch,
+                                });
+                            }}
                         />
                         <div
                             id="search-spinner"
@@ -104,13 +107,13 @@ export default function Root() {
                 </nav>
             </div>
             <div
-        id="detail"
-        className={
-          navigation.state === "loading" ? "loading" : ""
-        }
-      >
-        <Outlet />
-      </div>
+                id="detail"
+                className={
+                    navigation.state === "loading" ? "loading" : ""
+                }
+            >
+                <Outlet />
+            </div>
         </>
     );
 }

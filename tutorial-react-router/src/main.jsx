@@ -9,7 +9,9 @@ import Root from "./routes/root";
 import ErrorPage from "./error-page";
 import Contact, {
   loader as contactLoader,
+  action as contactAction,
 } from "./routes/contact";
+
 
 import { Outlet } from "react-router-dom";
 import  { loader as rootLoader,action as rootAction} from "./routes/root";
@@ -32,9 +34,10 @@ const router = createBrowserRouter([
         path: "contacts/:contactId",
         element: <Contact />,
         loader: contactLoader,
-      },
-      {
-        path: "contacts/:contactId/edit",
+        action: contactAction,
+      },{
+
+      path:"contactId/edit",
         element: <EditContact />,
         loader: contactLoader,
         action: editAction,

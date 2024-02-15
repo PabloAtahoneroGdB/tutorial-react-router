@@ -65,8 +65,11 @@ export default function Root() {
                             aria-live="polite"
                         ></div>
 
-                        <button type="submit">New</button>
+                        
                     </Form>
+                    <Form method="post">
+            <button type="submit">New</button>
+          </Form>
 
                 </div>
                 <nav>
